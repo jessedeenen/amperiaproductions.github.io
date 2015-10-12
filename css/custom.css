@@ -4,6 +4,30 @@
 }
 
 
+footer .main {
+  background: #333333;
+  color: #fff;
+  padding-top: 10px;
+}
+.footer p {
+    margin-left: 25px;
+  line-height: 12px;
+}
+.well {
+  color: #000;
+}
+.container-fluid {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 20px;
+  margin-bottom: 0;
+  
+}
+.logo path {
+  fill: #fff;
+}
+
+
 .btn-facebook {
     border-color: #3b5998;
     color: #3b5998;
@@ -29,7 +53,6 @@
     opacity: .85;
     padding: 8px 9px;
 }
-
 
 
 .card {
@@ -279,4 +302,8 @@
 .card.hovercard .info .desc {
     font-size: 20px;
     color: #333;
+}
+
+.space {
+  padding-bottom: 25px;
 }
