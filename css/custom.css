@@ -1,8 +1,24 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+}
+
+p,a {
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+
+
+
+
 .navbar:not(.navbar-transparent).navbar-ct-amp{
     background-color: #C20000;
     background-color: rgb(194, 0, 0, 0.98);
 }
 
+.copyright {
+  font-size: 12px;
+}
 
 footer .main {
   background: #333333;
@@ -11,18 +27,16 @@ footer .main {
 }
 .footer p {
   line-height: 12px;
-  font-size: 12px;
+  font-size: 14px;
 }
-.container-fluid {
-  margin-top: 20px;
-  margin-left: 50px;
-  margin-right: 20px;
-  margin-bottom: 0;
-  
+.footer-title {
+  font-weight: 700;
 }
 .logo path {
   fill: #fff;
 }
+
+
 
 
 .btn-facebook {
@@ -299,6 +313,11 @@ footer .main {
 .card.hovercard .info .desc {
     font-size: 20px;
     color: #333;
+}
+
+
+.card.hovercard .info .desc a{
+    font-size: 16px;
 }
 
 .space {
