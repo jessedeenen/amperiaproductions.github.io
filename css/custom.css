@@ -264,6 +264,9 @@ footer .main {
 .card.hovercard .cardheader {
 background-size: cover;
 background-position: 50% 40%;
+height: 25px;
+}
+.card.hovercard.cardheader.portfolio {
 height: 225px;
 }
 
