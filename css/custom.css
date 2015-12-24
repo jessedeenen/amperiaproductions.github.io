@@ -264,10 +264,12 @@ footer .main {
 .card.hovercard .cardheader {
 background-size: cover;
 background-position: 50% 40%;
-height: 25px;
 }
-.card.hovercard.cardheader.portfolio {
+.portfolio {
 height: 225px;
+}
+.team {
+height: 120px;
 }
 
 
@@ -298,11 +300,23 @@ height: 225px;
 .card.hovercard .tk-dvd {
   background-image: url(/img/portfolio/vhbdvd.jpg);
 }
-.card.hovercard .ls-basischoolkamp {
+.card.hovercard .ls-basisschoolkamp {
   background-image: url(/img/portfolio/partywestelbeers.jpg);
 }
-.card.hoverard .ls-afscheid {
+.card.hoverard .ls-back {
   background-image: url(/img/portfolio/feestbasisschool.jpg);
+}
+.card.hovercard .fs-helvoirt {
+  background-image: url(/img/portfolio/feest.jpg);
+}
+.card.hovercard .fs-ppesch {
+  background-image: url(/img/portfolio/feest50.jpg);
+}
+.card.hovervard .fs-sweetsixteen {
+  background-image: url(/img/portfolio/sweet16.jpg);
+}
+.card.hovercard .boxt {
+  background-image: url(/img/portfolio/boxt.jpg);
 }
 
 
@@ -313,10 +327,8 @@ position: relative;
 }
 
 .card.hovercard .avatar img {
-  width: 212px;
-  height: 212px;
-  max-width: 200px;
-  max-height: 200px;
+  width: 175px;
+  height: 175px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
