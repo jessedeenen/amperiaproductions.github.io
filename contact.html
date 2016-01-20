@@ -1,0 +1,31 @@
+---
+layout: default
+title: Contact
+permalink: /contact/
+---
+<div class="main">
+  <div class="container" style="max-width:800px; padding-top:50px">
+    <h1 class="text-center">Contact</h1>
+    <form method="POST" action="//formspree.io/info@amperiaproductions.nl">
+      <div class="form-group">
+        <label for="name">Volledige naam</label>
+        <input class="form-control" type="text" name="name" id="name"placeholder="John Doe">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" type="email" name="_replyto" id="email" placeholder="voor.beeld@voorbeeld.nl">
+      </div>
+      <div class="form-group">
+        <label for="text">Bericht</label>
+        <textarea class="form-control" name="message" rows="5" id="text"></textarea>
+      </div>
+      
+      <input class="form-control" type="hidden" name="_subject" value="Amperia Productions Website">
+      <input type="text" name="_gotcha" style="display:none">
+      <input type="hidden" name="_next" value="https://amperiaproductions.nl/thanks.html">
+      
+      <button class="btn btn-success pull-right" type="submit">Verzend</button>
+    </form>
+  </div>
+<div class="space"></div>
+</div>
