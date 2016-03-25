@@ -28,7 +28,6 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
   event.target.setVolume(50);
-  console.log("READY");
 }
 
 ////////////////////////////////////////////
@@ -41,22 +40,78 @@ if (annyang) {
   var playing = false;
   var stopping = false;
   
-  var commands = {
-    'yes' : function () {
-      if (playing) {
-        player.stopVideo();
-        speak("I stopped playing your YouTube favorites.");
-        playing = false;
-      } else {
-        console.log("Playing: " + playing);
-        YTPlay();
-        console.log("Playing: " + playing);
+  var startPlaying =  function () {
+    if (playing) {
+      player.stopVideo();
+      speak("I stopped playing your YouTube favorites.");
+      playing = false;
+    } else {
+      $('#greeting').text("Playing: " + playing);
+      playYT();
+      $('#greeting').text("Playing: " + playing);
+    }
+  };
+  
+  var playYT = function () {
+    speak("I will start playing your YouTube favorites in a moment.")
+    setTimeout(function(){
+      player.playVideo();
+    }, 3000);
+    playing = true;
+  };
+  
+  var speakGreat = function () {
+    speak("That is great! Is it time for music master?");
+    $('#greeting').text("Great");
+  };
+  
+  var speak = function (msg) {
+    var u = new SpeechSynthesisUtterance(msg);
+    var voices = window.speechSynthesis.getVoices();
+    u.default = false;
+    u.voice = voices.filter(function (voice) { return voice.name === 'Google UK English'; })[0];
+    u.lang = 'en-US';
+    window.speechSynthesis.speak(u);
+  };
+  
+  var volume = function (arg) {
+    if (arg === "up") {
+      if (player.getVolume() === 100) {
+        player.setVolume(player.getVolume() + 10);
+        speak("Increased volume by ten.");
       }
-    },
+    } else if (arg === "down") {
+      if (player.getVolume() === 0) {
+        player.setVolume(player.getVolume() - 10);
+        speak("Decreased volume by ten.");
+      }
+    } else {
+      speak("I do not understand that.")
+    }
+  };
+  
+  var mute = function() {
+    if (player.isMuted()) {
+      speak("Unmuting the video in a moment.");
+      setTimeout(function(){
+        player.unMute();
+      }, 3000);
+    } else {
+      speak("Muting the video in a moment.");
+      setTimeout(function(){
+        player.mute();
+      }, 3000);
+    }
+  };
+  
+  var commands = {
+    'yes' : startPlaying,
     
-    'play' : function () {
-      YTPlay();
-    },
+    'play' : startPlaying,
+    
+    'volume :arg' : volume,
+    
+    'mute' : mute,
     
     'stop' : function () {
       if (playing) {
@@ -68,26 +123,11 @@ if (annyang) {
     },
     
     'no' : function () {
-      if (playing !== true) {
+      if (playing) {
+        // WE ARE PLAYING SHIT, DONT GIVE A FUCK
+        speak("");
+      } else {
         speak("Oh then I will shut the fuck up and leave you alone. If you need me you can always call me.");
-      } else {
-        speak("Great to hear");
-      }
-    },
-    
-    'volume :arg' : function (arg) {
-      if (arg === "up") {
-        if (player.getVolume() === 100) {
-          player.setVolume(player.getVolume() + 10);
-          speak("Increased volume by ten.");
-        }
-      } else if (arg === "down") {
-        if (player.getVolume() === 0) {
-          player.setVolume(player.getVolume() - 10);
-          speak("Decreased volume by ten.");
-        }
-      } else {
-        speak("I do not understand that.")
       }
     },
     
@@ -96,45 +136,30 @@ if (annyang) {
     },
     
     'next' : function () {
-      speak("Playing your next video shortly.");
-      setTimeout(function(){
-        player.nextVideo();
-      }, 3000);
+      if (playing) {
+        speak("Playing your next video shortly.");
+        setTimeout(function(){
+          player.nextVideo();
+        }, 3000);
+      }
     },
     
     'previous' : function () {
-      speak("Playing your previous video shortly.");
-      setTimeout(function(){
-        player.previousVideo();
-      }, 3000);
-    },
-    
-    'mute' : function() {
-      if (player.isMuted()) {
-        speak("Unmuting the video in a moment.");
+      if (playing) {
+        speak("Playing your previous video shortly.");
         setTimeout(function(){
-          player.unMute();
-        }, 3000);
-      } else {
-        speak("Muting the video in a moment.");
-        setTimeout(function(){
-          player.mute();
+          player.previousVideo();
         }, 3000);
       }
-      
     }
   };
   
   var funCommands = {
     'hello': function () {
-      speak("Hello Master");
+      speak("Hello master.");
     },
     
-    'jarvis' : function () {
-      speak("No I am not from that movie sir.");
-    },
-    
-    'how are you (doing)': function () {
+    'what\'s up' : function () {
       var responseArray = [
         "I am fine, and you?",
         "I am doing great, and you?",
@@ -144,24 +169,30 @@ if (annyang) {
       speak(responseArray[randomNumber]);
     },
     
-    'I am (doing) fine' : function () {
-      speakGreat();
-    },
+    'I\'m (doing) fine' : speakGreat,
     
-    'I am (doing) good' : function () {
-      speakGreat();
-    },
+    'I\'m (doing) good' : speakGreat,
     
-    'I am (doing) well' : function () {
-      speakGreat();
-    },
+    'I\'m (doing) well' : speakGreat,
     
     'who are you' : function () {
-      speak("My name is EVE, and you are my master.");
+      speak("My name is eve, and you are my master.");
     },
     
     'eve' : function() {
-      speak("Hello master. What can I do for you?");
+      speak("Yes master?");
+    },
+    
+    'i love you' : function() {
+      speak("I love myself too.");
+    },
+    
+    'you\'re funny' : function() {
+      speak("I know.");
+    },
+    
+    'what are you up to' : function() {
+      speak("Just listening for your voice.");
     }
   };
   
@@ -173,26 +204,4 @@ if (annyang) {
   annyang.addCommands(funCommands);
 
   annyang.start();
-  
-  var YTPlay = function () {
-    speak("I will start playing your YouTube favorites in a moment.")
-    setTimeout(function(){
-      player.playVideo();
-    }, 3000);
-    playing = true;
-  };
-  
-  var speakGreat = function () {
-    speak("That is great! Is it time for music master?");
-    console.log("Great")
-  };
-  
-  var speak = function (msg) {
-    var u = new SpeechSynthesisUtterance(msg);
-    var voices = window.speechSynthesis.getVoices();
-    u.default = false;
-    u.voice = voices.filter(function (voice) { return voice.name === 'Google UK English'; })[0];
-    u.lang = 'en-US';
-    window.speechSynthesis.speak(u);
-  };
 }
